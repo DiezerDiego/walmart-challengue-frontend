@@ -4,7 +4,7 @@
 - `Department` :
 ![alt text](image.png)
 - `Items from Department` :
-![alt text](image-1.png)
+![alt text](image-3.png)
 
 # ✅ Recommendations
 
