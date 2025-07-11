@@ -1,7 +1,105 @@
 # DepartmentCrud
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.0.0-next.9.
+## UI (Interfaces)
+- `Department` :
+![alt text](image.png)
+- `Items from Department` :
+![alt text](image-1.png)
 
+# ✅ Recommendations
+
+## 1. 🧼 Use Clean Architecture
+
+- Clearly separate responsibilities:  
+  - `Core`: services, interceptors, guards, and pure models  
+  - `Domain`: interfaces and business logic  
+  - `Application`: use cases and validations  
+  - `Infrastructure`: API services, persistence, and utilities  
+  - `UI`: components and pages  
+
+> Business logic should not depend on Angular itself.
+
+![Clean Architecture Angular](image-2.png)
+
+---
+
+## 2. 📦 Feature-Based Project Structure
+
+Organize the app by business domain. Example:  
+`src/app/features/orders`, `src/app/features/products`, `src/app/shared`, `src/app/core`
+
+- Use lazy loading for each feature module  
+- Avoid global barrel files (`index.ts`) inside features; use them only in `shared`
+
+---
+
+## 3. 📊 State Management with NgRx
+
+- Follow Redux principles:  
+  - `Actions`  
+  - `Reducers`  
+  - `Selectors`  
+  - `Effects`
+
+Each feature should contain a `+state` directory:  
+Example:  
+`+state/products.actions.ts`, `products.reducer.ts`, `products.effects.ts`, `products.selectors.ts`
+
+**Best Practices:**
+
+- Use `@ngrx/component-store` for local state in components  
+- Do not store unnecessary data in the global store  
+- Use `createFeature`, `createActionGroup`, and `createReducer` for clarity and type safety  
+- Create reusable and composed selectors
+
+---
+
+## 4. ⚙️ Reactive Programming with RxJS
+
+**Best Practices:**
+
+- Prefer `async` pipe over manual `subscribe`  
+- Always handle errors using `catchError`  
+- Use `takeUntil` with a `destroy$` subject to prevent memory leaks  
+- Use `switchMap` to cancel previous requests  
+- Avoid deeply nested observables; keep streams flat
+
+---
+
+## 5. 🧩 Microfrontends and Shared Libraries
+
+- Angular supports Microfrontends using Module Federation with Webpack 5  
+- Use independent deployable modules if scalability or team autonomy is required  
+- Create shared libraries to avoid duplication (components, models, services)  
+- Place them in `libs/` or `projects/`  
+- Use tools like `nx`, `lerna`, or Angular CLI workspaces to manage libraries
+
+---
+
+## 6. 🧪 Testing
+
+- Use `Jest` or `Karma` for unit tests  
+- Use `Cypress` or `Playwright` for end-to-end tests  
+- Follow the testing pyramid: more unit tests, fewer E2E and integration tests  
+- Mock external services with `HttpTestingController` or `MockStore`  
+- Write tests for selectors, reducers, and effects separately
+
+---
+
+## 7. ✨ Additional Best Practices
+
+- Prefer `Standalone Components` to reduce boilerplate  
+- Use the SCAM pattern (Single Component Angular Module) when needed  
+- Enable `strict` mode in `tsconfig.json`  
+- Use interceptors for global HTTP logic (auth, logging, errors)  
+- Avoid hardcoded strings; use enums or constants  
+- Enforce consistency with ESLint and Prettier  
+- Follow accessibility standards (a11y) and semantic HTML  
+- Keep dependencies updated and perform regular security scans (`npm audit`, `Snyk`, OWASP tools)
+
+---
+
+This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.0.0-next.9.
 ## Development server
 
 To start a local development server, run:
@@ -12,19 +110,6 @@ ng serve
 
 Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
 
 ## Building
 
@@ -35,25 +120,3 @@ ng build
 ```
 
 This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
