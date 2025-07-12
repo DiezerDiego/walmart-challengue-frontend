@@ -24,9 +24,9 @@ export class Item implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      this.departmentNumber = +params['number']; // convierte string a number
+      this.departmentNumber = +params['number']; 
      this.loadItemsByDepartment(this.departmentNumber);
-      // Aquí puedes llamar al DataService para cargar los items
+     
     });
   }
 
@@ -38,12 +38,10 @@ export class Item implements OnInit {
   }
 
   editItem(item: ItemInterface) {
-    // Logic to open edit modal/form
     console.log('Edit', item);
   }
 
   deleteItem(item: ItemInterface) {
-    // Call delete from dataService (you must implement it there)
     console.log('Delete', item);
   }
 }
